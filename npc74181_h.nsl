@@ -1,0 +1,15 @@
+/*
+ * vim: set filetype=nsl :
+ *
+ * header of NPC74181: Non Pin-Compatible 74181
+ *
+ * Polarity of some pins of NPC74181 are inverted from real chip of 74181.
+ *
+ * Inverted pins are:
+ *   input: A, B, S, M
+ *   output: F (function output), P, G (carry lookaheads)
+ */
+declare npc74181 {
+    input m, s[4], a[4], b[4], ci ;
+    output o[4], zf, co, cp, cg ;
+}

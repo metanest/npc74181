@@ -1,0 +1,32 @@
+/*
+ * vim: set filetype=nsl :
+ *
+ * NPC74181: Non Pin-Compatible 74181
+ * Polarity of some pins of NPC74181 are inverted from real chip of 74181.
+ *
+ * Inverted pins are:
+ *   input: A, B, S, M
+ *   output: F (function output), P, G (carry lookaheads)
+ */
+#include "npc74181_h.nsl"
+
+module npc74181 {
+    wire u[4], v[4], cg_, o_[4] ;
+    wire c1, c2, c3 ;
+
+    u = a | (4{s[2]} & b) | (4{s[3]} & ~b) ;
+    v = (a & 4{s[0]} & ~b) | (a & 4{s[1]} & b) ;
+
+    c1 = |({&({m, v[0]}), &({m, u[0], ci})}) ;
+    c2 = |({&({m, v[1]}), &({m, u[1], v[0]}), &({m, u[1:0], ci})}) ;
+    c3 = |({&({m, v[2]}), &({m, u[2], v[1]}), &({m, u[2:1], v[0]}), &({m, u[2:0], ci})}) ;
+
+    cg_ = |({v[3], &({u[3], v[2]}), &({u[3:2], v[1]}), &({u[3:1], v[0]})}) ;
+    cg = cg_ ;
+    co = cg_ | &({u, ci}) ;
+    cp = &u;
+    o_ = (u ^ v) ^ {c3, c2, c1, (m & ci)} ;
+
+    o = o_ ;
+    zf = ~|o_ ;
+}
