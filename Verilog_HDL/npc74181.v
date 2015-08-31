@@ -1,3 +1,4 @@
+// Non Pin Compatible 74181
 module npc74181 (m, s, a, b, ci, o, zf, co, cp, cg);
    input m;
    input [3:0] s, a, b;
