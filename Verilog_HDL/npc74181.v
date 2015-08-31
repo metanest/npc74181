@@ -12,7 +12,7 @@ module npc74181 (m, s, a, b, ci, o, zf, co, cp, cg);
    wire [3:0] s2 = {s[2], s[2], s[2], s[2]};
    wire [3:0] s3 = {s[3], s[3], s[3], s[3]};
 
-   wire [3:0] v = ((a & ~b) & s0) | ((a &  b) & s1);
+   wire [3:0] v = ((a & ~b) & s0) | ((a & b) & s1);
    wire [3:0] u = a | (b & s2) | (~b & s3);
 
    wire c1 = |{ &{m, v[0]}, &{m, u[0], ci} };
